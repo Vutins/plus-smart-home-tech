@@ -1,4 +1,4 @@
-package ru.yandex.practicum.kafka;
+package ru.yandex.practicum.kafka.config;
 
 import lombok.Getter;
 import org.apache.kafka.clients.producer.ProducerConfig;
