@@ -16,17 +16,4 @@
         <module>serialization</module>
         <module>collector</module>
     </modules>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-        </dependency>
-
-        <!-- ✅ Опционально: если валидация нужна в других подмодулях -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-validation</artifactId>
-        </dependency>
-    </dependencies>
 </project>
