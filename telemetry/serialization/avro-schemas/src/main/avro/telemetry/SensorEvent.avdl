@@ -9,7 +9,7 @@ protocol SensorEventProtocol {
 		SWITCH_SENSOR_EVENT
 	}
 
-	record ClimatSensorEventAvro {
+	record ClimateSensorEventAvro {
 		int temperatureC;
 		int humidity;
 		int co2Level;
@@ -20,7 +20,7 @@ protocol SensorEventProtocol {
 		int lumenoisity;
 	}
 
-	record MontionSensorEventAvro {
+	record MotionSensorEventAvro {
 		int linkQuality;
 		boolean motion;
 		int voltage;
@@ -41,9 +41,9 @@ protocol SensorEventProtocol {
 		timestamp_ms timestamp;
 		SensorTypeAvro type;
 		union {
-			ClimatSensorEventAvro,
+			ClimateSensorEventAvro,
 			LightSensorEventAvro,
-			MontionSensorEventAvro,
+			MotionSensorEventAvro,
 			SwitchSensorEventAvro,
 			TemperatureSensorEventAvro
 		} payload;
