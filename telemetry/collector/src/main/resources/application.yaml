@@ -2,17 +2,39 @@ spring:
   application:
     name: collector
   config:
-    import: "configserver:http://localhost:8888"
+    # ✅ "optional:" позволяет приложению запуститься, если конфиг-сервер недоступен
+    import: "optional:configserver:http://localhost:8888"
   cloud:
     config:
-      fail-fast: true
-      retry:
-        useRandomPolicy: true
-        max-interval: 6000
+      # ✅ Не прерывать запуск при ошибке подключения
+      fail-fast: false
+      # ✅ Не искать конфиг-сервер через Eureka (локально)
       discovery:
-        enabled: true
+        enabled: false
         serviceId: config-server
+  # ✅ Локальная конфигурация Kafka
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: ru.practicum.serializer.GeneralAvroSerializer
+
+# ✅ Отключаем Eureka для локального запуска
 eureka:
   client:
+    enabled: false
     serviceUrl:
-      defaultZone: http://${eureka.instance.hostname:localhost}:${eureka.instance.port:8761}/eureka/
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+# ✅ Порт сервера
+server:
+  port: 8080
+
+# ✅ Логирование для отладки
+logging:
+  level:
+    ru.yandex.practicum: DEBUG
+    org.springframework.web: INFO
+    org.apache.kafka: WARN

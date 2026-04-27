@@ -1,5 +1,6 @@
 package ru.yandex.practicum.kafka.config;
 
+import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,7 @@ public class KafkaConfig {
 
     private Properties producerConfig;
 
+    @PostConstruct
     public void init() {
         this.producerConfig = new Properties();
         this.producerConfig.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
