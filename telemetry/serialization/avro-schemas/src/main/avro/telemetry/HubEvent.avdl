@@ -2,11 +2,11 @@
 protocol HubEventProtocol {
 
 	enum DeviceTypeAvro {
-		MOTION_SENSOR,
-		TEMPERATURE_SENSOR,
-		LIGHT_SENSOR,
 		CLIMATE_SENSOR,
-		SWITCH_SENSOR
+		LIGHT_SENSOR,
+		MOTION_SENSOR,
+		SWITCH_SENSOR,
+		TEMPERATURE_SENSOR
 	}
 
 	enum ConditionTypeAvro {
