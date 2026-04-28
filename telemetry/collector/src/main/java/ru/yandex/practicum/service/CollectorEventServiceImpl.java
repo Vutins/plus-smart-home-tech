@@ -52,6 +52,5 @@ public class CollectorEventServiceImpl implements CollectorEventService {
             log.error("Error processing hub event: {}", hubEventDto, e);
             throw e;
         }
-
     }
 }

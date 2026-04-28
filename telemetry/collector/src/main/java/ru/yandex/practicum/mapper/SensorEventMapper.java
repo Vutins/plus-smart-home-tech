@@ -30,7 +30,7 @@ public class SensorEventMapper {
                 LightSensorEventDto lightDto = (LightSensorEventDto) eventDto;
                 LightSensorEventAvro lightEvent = LightSensorEventAvro.newBuilder()
                         .setLinkQuality(lightDto.getLinkQuality())
-                        .setLumenoisity(lightDto.getLuminosity())
+                        .setLumenosity(lightDto.getLuminosity())
                         .build();
                 sensorEventBuilder.setPayload(lightEvent);
                 break;
