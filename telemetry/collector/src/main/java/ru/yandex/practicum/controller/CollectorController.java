@@ -12,7 +12,6 @@ import ru.yandex.practicum.dto.sensor.SensorEventDto;
 import ru.yandex.practicum.service.CollectorEventService;
 
 @Slf4j
-
 @RequestMapping("/events")
 @RequiredArgsConstructor
 public class CollectorController {

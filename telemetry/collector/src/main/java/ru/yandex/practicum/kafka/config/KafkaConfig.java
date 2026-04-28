@@ -4,7 +4,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.stereotype.Component;
-import ru.practicum.serializer.GeneralAvroSerializer;
+import ru.yandex.practicum.kafka.serializer.GeneralAvroSerializer;
 
 import java.util.Properties;
 
