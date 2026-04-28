@@ -6,13 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import ru.yandex.practicum.dto.hub.HubEventDto;
 import ru.yandex.practicum.dto.sensor.SensorEventDto;
 import ru.yandex.practicum.service.CollectorEventService;
 
 @Slf4j
-@RequestMapping("/events")
+@RestController("/events")
 @RequiredArgsConstructor
 public class CollectorController {
 
