@@ -12,7 +12,7 @@ public class SensorEventMapper {
         SensorEventAvro.Builder sensorEventBuilder = SensorEventAvro.newBuilder()
                 .setId(eventDto.getId())
                 .setHubId(eventDto.getHubId())
-                .setTimestamp(eventDto.getTimestamp());
+                .setTimestamp(eventDto.getTimestamp().toEpochMilli());
 
         // Явно указываем тип для union вместо общего Object
         switch (eventDto.getType()) {

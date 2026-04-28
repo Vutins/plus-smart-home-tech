@@ -15,7 +15,7 @@ public class HubEventMapper {
     public HubEventAvro toAvro(HubEventDto eventDto) {
         HubEventAvro.Builder hubEventBuilder = HubEventAvro.newBuilder()
                 .setHubId(eventDto.getHubId())
-                .setTimestamp(eventDto.getTimestamp());
+                .setTimestamp(eventDto.getTimestamp().toEpochMilli());
 
         // Явно указываем тип для union вместо общего Object
         switch (eventDto.getType()) {
