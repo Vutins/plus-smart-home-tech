@@ -2,11 +2,11 @@
 protocol HubEventProtocol {
 
 	enum DeviceTypeAvro {
-		CLIMATE_SENSOR,
-		LIGHT_SENSOR,
 		MOTION_SENSOR,
-		SWITCH_SENSOR,
-		TEMPERATURE_SENSOR
+		TEMPERATURE_SENSOR,
+		LIGHT_SENSOR,
+		CLIMATE_SENSOR,
+		SWITCH_SENSOR
 	}
 
 	enum ConditionTypeAvro {
@@ -38,6 +38,19 @@ protocol HubEventProtocol {
 		SCENARIO_REMOVED
 	}
 
+	record ScenarioConditionAvro {
+		string sensorId;
+		ConditionTypeAvro type;
+		ConditionOperationAvro operation;
+		union { null, int, boolean } value = null;
+	}
+
+	record DeviceActionAvro {
+		string sensorId;
+		ActionTypeAvro type;
+		int? value = null;
+	}
+
 	record DeviceAddedEventAvro {
 		string id;
 		DeviceTypeAvro deviceType;
@@ -47,27 +60,14 @@ protocol HubEventProtocol {
 		string id;
 	}
 
-	record DeviceActionAvro {
-		string sensorId;
-		ActionTypeAvro type;
-		int? value = null;
-	}
-
 	record ScenarioAddedEventAvro {
 		string name;
-		array<ScenarioConditionAvro> condition;
-		array<DeviceActionAvro> action;
+		array<ScenarioConditionAvro> conditions;
+		array<DeviceActionAvro> actions;
 	}
 
 	record ScenarioRemovedEventAvro {
 		string name;
-	}
-
-	record ScenarioConditionAvro {
-		string sensorId;
-		ConditionTypeAvro type;
-		ConditionOperationAvro operation;
-		union {null, int, boolean} value = null;
 	}
 
 	record HubEventAvro {

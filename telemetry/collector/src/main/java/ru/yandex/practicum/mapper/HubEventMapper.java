@@ -48,8 +48,8 @@ public class HubEventMapper {
                         .collect(Collectors.toList());
                 ScenarioAddedEventAvro scenarioAdded = ScenarioAddedEventAvro.newBuilder()
                         .setName(scenarioAddedDto.getName())
-                        .setCondition(conditions)
-                        .setAction(actions)
+                        .setConditions(conditions)
+                        .setActions(actions)
                         .build();
                 hubEventBuilder.setPayload(scenarioAdded);
                 log.info("MAPPED: SCENARIO_ADDED -> ScenarioAddedEvent, name: {}", scenarioAddedDto.getName());
