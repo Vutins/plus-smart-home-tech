@@ -30,12 +30,11 @@ public class KafkaEventProducer implements AutoCloseable {
 
         String eventClass = event.getClass().getSimpleName();
 
-        long ts = timestamp != null ? timestamp.toEpochMilli() : System.currentTimeMillis();
 
         ProducerRecord<String, SpecificRecordBase> record = new ProducerRecord<>(
                 topic,
                 null,
-                ts,
+                timestamp.toEpochMilli(),
                 hubId,
                 event
         );

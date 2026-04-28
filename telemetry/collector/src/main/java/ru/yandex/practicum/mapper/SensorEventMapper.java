@@ -9,14 +9,11 @@ import ru.yandex.practicum.kafka.telemetry.event.*;
 public class SensorEventMapper {
 
     public SensorEventAvro toAvro(SensorEventDto eventDto) {
-        long ts = eventDto.getTimestamp() != null
-                ? eventDto.getTimestamp().toEpochMilli()
-                : System.currentTimeMillis();
-
         SensorEventAvro.Builder sensorEventBuilder = SensorEventAvro.newBuilder()
                 .setId(eventDto.getId())
                 .setHubId(eventDto.getHubId())
-                .setTimestamp(ts);
+                .setTimestamp(eventDto.getTimestamp().toEpochMilli())
+                .setType(eventDto.getType());
 
         // Явно указываем тип для union вместо общего Object
         switch (eventDto.getType()) {
