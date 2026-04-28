@@ -10,6 +10,8 @@
     </parent>
 
     <artifactId>telemetry</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>telemetry</name>
     <packaging>pom</packaging>
 
     <modules>

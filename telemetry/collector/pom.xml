@@ -11,6 +11,8 @@
     </parent>
 
     <artifactId>collector</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>collector</name>
 
     <dependencies>
         <!-- ✅ Spring Boot Starter Web (ОБЯЗАТЕЛЬНО для @RestController) -->
