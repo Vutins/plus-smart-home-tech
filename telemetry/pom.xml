@@ -10,11 +10,12 @@
     </parent>
 
     <artifactId>telemetry</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>telemetry</name>
     <packaging>pom</packaging>
 
     <modules>
         <module>serialization</module>
         <module>collector</module>
     </modules>
-
 </project>
