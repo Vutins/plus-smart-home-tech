@@ -10,7 +10,6 @@ import ru.yandex.practicum.kafka.telemetry.event.ConditionTypeAvro;
 @Setter
 @ToString
 public class ScenarioConditionDto<T> {
-
     private String sensorId;
     private ConditionTypeAvro type;
     private ConditionOperationAvro operation;

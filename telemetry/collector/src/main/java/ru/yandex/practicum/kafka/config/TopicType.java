@@ -15,6 +15,10 @@ public enum TopicType {
         this.topic = topic;
     }
 
+    public static boolean isCorrectTopic(String gn) {
+        return TopicType.KafkaTopics.topicList.contains(gn);
+    }
+
     private static class KafkaTopics {
         public static final List<String> topicList = List.of("telemetry.sensors.v1", "telemetry.hubs.v1");
     }

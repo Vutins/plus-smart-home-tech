@@ -41,5 +41,6 @@ public class GeneralAvroSerializer implements Serializer<SpecificRecordBase> {
 
     @Override
     public void close() {
+        // Ничего не нужно закрывать
     }
 }

@@ -5,13 +5,11 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.Properties;
 
 @Configuration
-@ConfigurationProperties("aggregator.kafka")
 public class KafkaSnapshotProducerConfig {
 
     @Value("${spring.kafka.bootstrap-servers}")
@@ -29,6 +27,7 @@ public class KafkaSnapshotProducerConfig {
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, keySerializerClass);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, valueSerializerClass);
 
+        // Дополнительные настройки производительности
         props.put(ProducerConfig.ACKS_CONFIG, "all");
         props.put(ProducerConfig.RETRIES_CONFIG, 3);
         props.put(ProducerConfig.BATCH_SIZE_CONFIG, 16384);

@@ -17,6 +17,7 @@ public class HubEventMapper {
                 .setHubId(eventDto.getHubId())
                 .setTimestamp(eventDto.getTimestamp().toEpochMilli());
 
+        // Явно указываем тип для union вместо общего Object
         switch (eventDto.getType()) {
             case DEVICE_ADDED:
                 DeviceAddedEventDto addedEventDto = (DeviceAddedEventDto) eventDto;
@@ -82,6 +83,7 @@ public class HubEventMapper {
         } else if (value instanceof Boolean) {
             builder.setValue((Boolean) value);
         }
+        // Для null оставляем значение по умолчанию
 
         return builder.build();
     }

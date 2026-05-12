@@ -42,5 +42,6 @@ public class BaseAvroDeserializer<T extends SpecificRecordBase> implements Deser
 
     @Override
     public void close() {
+        // Ничего не нужно закрывать
     }
 }

@@ -44,20 +44,22 @@ public class HubEventTxService {
         log.info("🔧 saveScenario: name='{}', hubId={}, conditions={}, actions={}",
                 event.getName(), hubId, event.getConditions().size(), event.getActions().size());
 
+        //Собираем набор по условиям и действиям
         Set<String> sensors = new HashSet<>();
         event.getConditions().forEach(condition -> sensors.add(condition.getSensorId()));
         event.getActions().forEach(action -> sensors.add(action.getSensorId()));
         log.debug("📋 Сенсоры для проверки: {}", sensors);
 
+        //проверяем, что всё есть, можно дальше работать.
         boolean allSensorsExists = sensorRepository.existsByIdInAndHubId(sensors, hubId);
         log.info("✅ Сенсоры существуют для hubId={}: {}", hubId, allSensorsExists);
 
         if(!allSensorsExists) {
             log.error("❌ ОШИБКА: Нет сенсоров для сценария. hubId={}, sensors={}", hubId, sensors);
-            throw new IllegalStateException("Нет возможности создать сценарий с использованием" +
-                    " неизвестного устройства");
+            throw new IllegalStateException("Нет возможности создать сценарий с использованием неизвестного устройства");
         }
 
+        //Пытаемся найти уже существующий сценарий.
         Optional<Scenario> maybeExist = scenarioRepository.findByHubIdAndName(hubId, event.getName());
         log.info("🔍 Существующий сценарий hubId={}, name={}: {}", hubId, event.getName(),
                 maybeExist.isPresent() ? "НАЙДЕН" : "ОТСУТСТВУЕТ");
@@ -72,6 +74,7 @@ public class HubEventTxService {
             scenario = maybeExist.get();
             log.info("🔄 Обновляем существующий сценарий: id={}", scenario.getId());
 
+            // Удаляем старые условия и действия
             Map<String, Condition> conditions = scenario.getConditions();
             if (!conditions.isEmpty()) {
                 conditionRepository.deleteAll(conditions.values());
@@ -87,6 +90,7 @@ public class HubEventTxService {
             }
         }
 
+        //Заново пересобираем новые условия
         int conditionCount = 0;
         for (ScenarioConditionAvro eventCondition : event.getConditions()) {
             Condition condition = new Condition();
@@ -101,6 +105,7 @@ public class HubEventTxService {
         }
         log.info("✅ Добавлено условий: {}", conditionCount);
 
+        //Заново пересобираем новые действия
         int actionCount = 0;
         for (DeviceActionAvro eventAction : event.getActions()) {
             Action action = new Action();
@@ -108,7 +113,7 @@ public class HubEventTxService {
             if (eventAction.getType().equals(ActionTypeAvro.SET_VALUE)) {
                 action.setValue(mapValue(eventAction.getValue()));
             } else {
-                action.setValue(0);
+                action.setValue(0); // или 1, если тебе так логичнее
             }
 
             scenario.addAction(eventAction.getSensorId(), action);
@@ -118,18 +123,19 @@ public class HubEventTxService {
         }
         log.info("✅ Добавлено действий: {}", actionCount);
 
+        // Сохраняем условия и действия
         conditionRepository.saveAll(scenario.getConditions().values());
         actionRepository.saveAll(scenario.getActions().values());
 
         Scenario savedScenario = scenarioRepository.save(scenario);
 
+        // 2. Строим связи scenario_conditions
         for (Map.Entry<String, Condition> entry : scenario.getConditions().entrySet()) {
             String sensorId = entry.getKey();
             Condition condition = entry.getValue();
 
             Sensor sensor = sensorRepository.findByIdAndHubId(sensorId, hubId)
-                    .orElseThrow(() -> new EntityNotFoundException("Сенсор " + sensorId + " не найден при связывании" +
-                            " условия"));
+                    .orElseThrow(() -> new EntityNotFoundException("Сенсор " + sensorId + " не найден при связывании условия"));
 
             ScenarioConditionId id = ScenarioConditionId.builder()
                     .scenarioId(savedScenario.getId())
@@ -147,6 +153,7 @@ public class HubEventTxService {
             scenarioConditionRepository.save(sc);
         }
 
+        // 3. Строим связи scenario_actions
         for (Map.Entry<String, Action> entry : scenario.getActions().entrySet()) {
             String sensorId = entry.getKey();
             Action action = entry.getValue();

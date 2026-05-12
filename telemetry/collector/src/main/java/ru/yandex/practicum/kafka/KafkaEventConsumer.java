@@ -14,27 +14,45 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Класс для потребления сообщений из Kafka
+ */
 @Slf4j
 @Component
 public class KafkaEventConsumer implements AutoCloseable {
     private final KafkaConsumer<String, SpecificRecordBase> consumer;
 
+    /**
+     * Конструктор класса.
+     *
+     * @param kafkaConfig Класс, содержащий настройки для работы с Kafka
+     */
     public KafkaEventConsumer(KafkaConfig kafkaConfig) {
         this.consumer = new KafkaConsumer<>(kafkaConfig.getConsumerConfig());
     }
 
+    /**
+     * Метод для инициализации консюмера и подписки на топики
+     */
     @PostConstruct
     public void init() {
+        // Список топиков, на которые подписываемся
         List<String> topics = Arrays.asList("telemetry.sensors.v1", "telemetry.hub.v1");
+        // Подписываемся на топики
         consumer.subscribe(topics);
         log.info("Консюмер подписан на топики: {}", topics);
     }
 
+    /**
+     * Метод для потребления сообщений из Kafka
+     */
     public void consume() {
         try {
             while (true) {
+                // Опрашиваем Kafka на наличие новых сообщений
                 ConsumerRecords<String, SpecificRecordBase> records = consumer.poll(Duration.ofSeconds(1));
 
+                // Обрабатываем каждое сообщение
                 for (ConsumerRecord<String, SpecificRecordBase> record : records) {
                     String eventClass = record.value().getClass().getSimpleName();
                     log.info("Получено сообщение из топика {}: {} (партиция: {}, смещение: {})",
@@ -46,6 +64,9 @@ public class KafkaEventConsumer implements AutoCloseable {
         }
     }
 
+    /**
+     * Метод для закрытия ресурсов, связанных с консюмером.
+     */
     @Override
     @PreDestroy
     public void close() {
