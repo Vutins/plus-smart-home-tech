@@ -14,7 +14,6 @@ public class DeviceAddedToAvroConverter {
 
     public HubEventAvro convertToAvro(HubEventProto proto) {
         Timestamp protoTimestamp = proto.getTimestamp();
-        //Instant instant = Instant.ofEpochSecond(protoTimestamp.getSeconds(), protoTimestamp.getNanos());
 
         DeviceAddedEventAvro deviceAddedEventAvro = finalConvert(proto.getDeviceAdded());
 

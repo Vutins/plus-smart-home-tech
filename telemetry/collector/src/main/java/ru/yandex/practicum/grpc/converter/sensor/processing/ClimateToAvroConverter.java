@@ -12,7 +12,6 @@ public class ClimateToAvroConverter {
 
     public SensorEventAvro convertToAvro(SensorEventProto proto) {
         Timestamp protoTimestamp = proto.getTimestamp();
-        //Instant instant = Instant.ofEpochSecond(protoTimestamp.getSeconds(), protoTimestamp.getNanos());
 
         ClimateSensorEventAvro climatePayload = convert(proto.getClimateSensor());
 

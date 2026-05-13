@@ -10,7 +10,6 @@ public class ScenarioRemoveToAvroConverter {
 
     public HubEventAvro convertToAvro(ru.yandex.practicum.grpc.telemetry.messages.HubEventProto proto) {
         Timestamp protoTimestamp = proto.getTimestamp();
-        //Instant instant = Instant.ofEpochSecond(protoTimestamp.getSeconds(), protoTimestamp.getNanos());
 
         ScenarioRemovedEventAvro scenarioRemovedEventAvro = convert(proto.getScenarioRemoved());
 

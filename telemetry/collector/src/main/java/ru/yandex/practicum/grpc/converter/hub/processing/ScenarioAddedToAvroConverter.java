@@ -12,7 +12,6 @@ public class ScenarioAddedToAvroConverter {
 
     public HubEventAvro convertToAvro(HubEventProto proto) {
         Timestamp protoTimestamp = proto.getTimestamp();
-        //Instant instant = Instant.ofEpochSecond(protoTimestamp.getSeconds(), protoTimestamp.getNanos());
 
         ScenarioAddedEventAvro scenarioAddedEventAvro = finalConvert(proto.getScenarioAdded());
 

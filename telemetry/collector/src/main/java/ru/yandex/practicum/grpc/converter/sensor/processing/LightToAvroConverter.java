@@ -12,7 +12,6 @@ public class LightToAvroConverter {
 
     public SensorEventAvro convertToAvro(SensorEventProto proto) {
         Timestamp protoTimestamp = proto.getTimestamp();
-        //Instant instant = Instant.ofEpochSecond(protoTimestamp.getSeconds(), protoTimestamp.getNanos());
 
         LightSensorEventAvro lightPayload = convert(proto.getLightSensor());
 
