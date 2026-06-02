@@ -9,7 +9,6 @@ import ru.yandex.practicum.kafka.telemetry.event.ActionTypeAvro;
 @Setter
 @ToString
 public class DeviceActionDto {
-
     private String sensorId;
     private ActionTypeAvro type;
     private Integer value;

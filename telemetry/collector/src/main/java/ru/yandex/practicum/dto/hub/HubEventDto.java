@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import lombok.experimental.FieldDefaults;
 import ru.yandex.practicum.kafka.telemetry.event.HubEventTypeAvro;
 
 import java.time.Instant;
@@ -28,12 +26,11 @@ import java.time.Instant;
 @Getter
 @Setter
 @ToString
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public abstract class HubEventDto {
     @NotBlank
-    String hubId;
+    private String hubId;
 
-    Instant timestamp = Instant.now();
+    private Instant timestamp = Instant.now();
 
     @JsonProperty("type")
     public abstract HubEventTypeAvro getType();

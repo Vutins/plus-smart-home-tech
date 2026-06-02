@@ -2,6 +2,10 @@ spring:
   application:
     name: collector
 
+grpc:
+  server:
+    port: 59090
+
 logging:
   level:
     ru.yandex.practicum.telemetry: TRACE
@@ -12,14 +16,12 @@ logging:
 collector:
   kafka:
     producer:
-      bootstrap-servers: localhost:9092
-      client-id: telemetry.collector
-      acks: 1
-      linger-ms: 5
-      batch-size: 16384
-      buffer-memory: 33554432
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: ru.yandex.practicum.kafka.serializer.GeneralAvroSerializer
-    topics:
-      sensors-events: telemetry.sensors.v1
-      hubs-events: telemetry.hubs.v1
+      properties:
+        bootstrap.servers: localhost:9092
+        client.id: telemetry.collector
+        key.serializer: org.apache.kafka.common.serialization.StringSerializer
+        value.serializer: ru.yandex.practicum.kafka.serializer.GeneralAvroSerializer
+        linger.ms: 0
+      topics:
+        sensors-events: telemetry.sensors.v1
+        hubs-events: telemetry.hubs.v1

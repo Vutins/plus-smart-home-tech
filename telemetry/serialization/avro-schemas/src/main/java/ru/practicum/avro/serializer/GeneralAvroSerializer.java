@@ -1,4 +1,4 @@
-package ru.practicum.serializer;
+package ru.practicum.avro.serializer;
 
 import org.apache.avro.io.BinaryEncoder;
 import org.apache.avro.io.DatumWriter;
@@ -41,5 +41,6 @@ public class GeneralAvroSerializer implements Serializer<SpecificRecordBase> {
 
     @Override
     public void close() {
+        // Ничего не нужно закрывать
     }
 }

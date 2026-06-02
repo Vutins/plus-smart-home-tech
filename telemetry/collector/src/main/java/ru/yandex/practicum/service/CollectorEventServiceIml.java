@@ -14,8 +14,7 @@ import ru.yandex.practicum.dto.sensor.SensorEventDto;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class CollectorEventServiceImpl implements CollectorEventService {
-
+public class CollectorEventServiceIml implements CollectorEventService {
     private final KafkaEventProducer kafkaEventProducer;
     private final SensorEventMapper sensorEventMapper;
     private final HubEventMapper hubEventMapper;
@@ -52,5 +51,6 @@ public class CollectorEventServiceImpl implements CollectorEventService {
             log.error("Error processing hub event: {}", hubEventDto, e);
             throw e;
         }
+
     }
 }
