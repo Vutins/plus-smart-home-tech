@@ -23,6 +23,11 @@
     </repositories>
 
     <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
         <!-- Avro схемы -->
         <dependency>
             <groupId>ru.yandex.practicum</groupId>
