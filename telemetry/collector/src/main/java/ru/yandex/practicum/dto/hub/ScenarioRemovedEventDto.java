@@ -10,7 +10,6 @@ import ru.yandex.practicum.kafka.telemetry.event.HubEventTypeAvro;
 @Setter
 @ToString(callSuper = true)
 public class ScenarioRemovedEventDto extends HubEventDto {
-
     @NotBlank
     private String name;
 

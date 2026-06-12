@@ -1,6 +1,5 @@
 package ru.yandex.practicum.mapper;
 
-
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.dto.sensor.*;
 import ru.yandex.practicum.kafka.telemetry.event.*;
