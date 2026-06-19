@@ -6,12 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
-import ru.yandex.practicum.interaction_api.model.enums.ShoppingCartState;
 
 import java.util.List;
 import java.util.UUID;
 
 import lombok.*;
+import ru.yandex.practicum.interaction_api.model.shopping_cart.dto.ShoppingCartState;
 
 @Entity
 @Getter

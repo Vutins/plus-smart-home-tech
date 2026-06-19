@@ -1,8 +1,8 @@
 package ru.yandex.practicum.warehouse.mapper;
 
 import lombok.experimental.UtilityClass;
-import ru.yandex.practicum.interaction_api.model.dto.warehouse.NewProductInWarehouseRequest;
-import ru.yandex.practicum.interaction_api.model.dto.warehouse.ProductInWarehouseDto;
+import ru.yandex.practicum.interaction_api.model.warehouse.dto.ProductInWarehouseDto;
+import ru.yandex.practicum.interaction_api.model.warehouse.dto.request.NewProductInWarehouseRequest;
 import ru.yandex.practicum.warehouse.entity.ProductInWarehouseDao;
 
 @UtilityClass
