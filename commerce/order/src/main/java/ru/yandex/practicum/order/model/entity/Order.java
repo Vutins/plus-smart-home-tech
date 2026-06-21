@@ -18,7 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class OrderDao {
+public class Order {
 
     @Id
     @UuidGenerator

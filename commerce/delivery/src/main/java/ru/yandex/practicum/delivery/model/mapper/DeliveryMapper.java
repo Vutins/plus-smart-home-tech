@@ -1,7 +1,7 @@
 package ru.yandex.practicum.delivery.model.mapper;
 
 import lombok.experimental.UtilityClass;
-import ru.yandex.practicum.delivery.model.entity.DeliveryDao;
+import ru.yandex.practicum.delivery.model.entity.Delivery;
 import ru.yandex.practicum.delivery.model.entity.DeliveryAddress;
 import ru.yandex.practicum.interaction_api.model.delivery.dto.DeliveryDto;
 import ru.yandex.practicum.interaction_api.model.warehouse.dto.AddressDto;
@@ -9,7 +9,7 @@ import ru.yandex.practicum.interaction_api.model.warehouse.dto.AddressDto;
 @UtilityClass
 public class DeliveryMapper {
 
-    public static DeliveryDto toDto(DeliveryDao entity) {
+    public static DeliveryDto toDto(Delivery entity) {
         if (entity == null) return null;
 
         return DeliveryDto.builder()
@@ -21,10 +21,10 @@ public class DeliveryMapper {
                 .build();
     }
 
-    public static DeliveryDao toEntity(DeliveryDto dto) {
+    public static Delivery toEntity(DeliveryDto dto) {
         if (dto == null) return null;
 
-        return DeliveryDao.builder()
+        return Delivery.builder()
                 .deliveryId(dto.getDeliveryId())
                 .orderId(dto.getOrderId())
                 .deliveryState(dto.getDeliveryState())

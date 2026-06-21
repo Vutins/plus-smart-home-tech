@@ -2,9 +2,6 @@ package ru.yandex.practicum.interaction_api.model.order.dto;
 
 public enum OrderState {
     NEW,
-    ON_PAYMENT,
-    ON_DELIVERY,
-    DONE,
     DELIVERED,
     ASSEMBLED,
     PAID,
@@ -12,6 +9,5 @@ public enum OrderState {
     DELIVERY_FAILED,
     ASSEMBLY_FAILED,
     PAYMENT_FAILED,
-    PRODUCT_RETURNED,
-    CANCELED
+    PRODUCT_RETURNED
 }

@@ -3,16 +3,16 @@ package ru.yandex.practicum.order.model.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import ru.yandex.practicum.order.model.entity.OrderDao;
+import ru.yandex.practicum.order.model.entity.Order;
 
 import java.util.Optional;
 import java.util.UUID;
 
-public interface OrderRepository extends JpaRepository<OrderDao, UUID> {
+public interface OrderRepository extends JpaRepository<Order, UUID> {
 
-    Page<OrderDao> findByUsername(String username, Pageable pageable);
+    Page<Order> findByUsername(String username, Pageable pageable);
 
-    Optional<OrderDao> findByPaymentId(UUID paymentId);
+    Optional<Order> findByPaymentId(UUID paymentId);
 
-    Optional<OrderDao> findByDeliveryId(UUID deliveryId);
+    Optional<Order> findByDeliveryId(UUID deliveryId);
 }

@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PaymentDao {
+public class Payment {
 
     @Id
     @UuidGenerator

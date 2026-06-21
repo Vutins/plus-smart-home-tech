@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.yandex.practicum.delivery.model.entity.DeliveryDao;
+import ru.yandex.practicum.delivery.model.entity.Delivery;
 import ru.yandex.practicum.delivery.model.entity.DeliveryAddress;
 import ru.yandex.practicum.delivery.model.mapper.DeliveryMapper;
 import ru.yandex.practicum.delivery.model.repository.DeliveryRepository;
@@ -45,7 +45,7 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Override
     @Transactional
     public void successfulDelivery(UUID deliveryId) {
-        DeliveryDao delivery = getDelivery(deliveryId);
+        Delivery delivery = getDelivery(deliveryId);
 
         delivery.setDeliveryState(DeliveryState.DELIVERED);
         repository.save(delivery);
@@ -59,7 +59,7 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Override
     @Transactional
     public void pickedDelivery(UUID deliveryId) {
-        DeliveryDao delivery = getDelivery(deliveryId);
+        Delivery delivery = getDelivery(deliveryId);
 
         OrderDto order = orderClient.getOrderByDelivery(deliveryId);
         orderClient.assemblyOrder(order.getOrderId());
@@ -77,7 +77,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public void failedDelivery(UUID deliveryId) {
-        DeliveryDao delivery = getDelivery(deliveryId);
+        Delivery delivery = getDelivery(deliveryId);
 
         delivery.setDeliveryState(DeliveryState.CANCELLED);
         repository.save(delivery);
@@ -90,11 +90,11 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public BigDecimal calculateDeliveryCost(OrderDto order) {
-        DeliveryDao delivery = getDelivery(order.getDeliveryId());
+        Delivery delivery = getDelivery(order.getDeliveryId());
         return calculateDelivery(delivery, order);
     }
 
-    private DeliveryDao getDelivery(UUID deliveryId) {
+    private Delivery getDelivery(UUID deliveryId) {
         return repository.findById(deliveryId)
                 .orElseThrow(() -> new NoDeliveryFoundException("Доставка с id: " + deliveryId + " не найдена!"));
     }
@@ -109,7 +109,7 @@ public class DeliveryServiceImpl implements DeliveryService {
                 || address.getFlat().contains(substring));
     }
 
-    private BigDecimal calculateDelivery(DeliveryDao delivery, OrderDto order) {
+    private BigDecimal calculateDelivery(Delivery delivery, OrderDto order) {
         log.debug("Начало расчёта стоимости доставки для заказа: {}", order.getOrderId());
         log.debug("Идентификационный номер доставки: {}", delivery.getDeliveryId());
         BigDecimal deliveryPrice = BASE_DELIVERY_COST;

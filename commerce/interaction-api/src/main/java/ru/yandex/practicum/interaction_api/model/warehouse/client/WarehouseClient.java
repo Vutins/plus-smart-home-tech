@@ -31,5 +31,5 @@ public interface WarehouseClient {
     void shippedOrder(@RequestBody @Valid ShippedToDeliveryRequest request);
 
     @PostMapping("/api/v1/warehouse/check")
-    BookedProductsDto checkQuantityForCart(@RequestBody ShoppingCartDto shoppingCart);
+    void checkQuantityForCart(@RequestBody ShoppingCartDto shoppingCart);
 }

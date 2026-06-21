@@ -19,17 +19,17 @@ public interface OrderClient {
     OrderDto getOrderByDelivery(@RequestBody UUID deliveryId);
 
     @PostMapping(BASE_URL+"/payment")
-    OrderDto paymentOrder(@RequestBody UUID orderId);
+    void paymentOrder(@RequestBody UUID orderId);
 
     @PostMapping(BASE_URL+"/payment/failed")
-    OrderDto failedPaymentOrder(@RequestBody UUID orderId);
+    void failedPaymentOrder(@RequestBody UUID orderId);
 
     @PostMapping(BASE_URL+"/delivery")
-    OrderDto deliveryOrder(@RequestBody UUID orderId);
+    void deliveryOrder(@RequestBody UUID orderId);
 
     @PostMapping(BASE_URL+"/delivery/failed")
-    OrderDto failedDeliveryOrder(@RequestBody UUID orderId);
+    void failedDeliveryOrder(@RequestBody UUID orderId);
 
     @PostMapping(BASE_URL+"/assembly")
-    OrderDto assemblyOrder(@RequestBody UUID orderId);
+    void assemblyOrder(@RequestBody UUID orderId);
 }

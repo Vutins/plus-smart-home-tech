@@ -2,12 +2,12 @@ package ru.yandex.practicum.order.model.mapper;
 
 import lombok.experimental.UtilityClass;
 import ru.yandex.practicum.interaction_api.model.order.dto.OrderDto;
-import ru.yandex.practicum.order.model.entity.OrderDao;
+import ru.yandex.practicum.order.model.entity.Order;
 
 @UtilityClass
 public class OrderMapper {
 
-    public static OrderDto toDto(OrderDao order) {
+    public static OrderDto toDto(Order order) {
         if (order == null) {
             return null;
         }
@@ -25,28 +25,6 @@ public class OrderMapper {
                 .totalPrice(order.getTotalPrice())
                 .deliveryPrice(order.getDeliveryPrice())
                 .productPrice(order.getProductPrice())
-                .build();
-    }
-
-    public static OrderDao fromDto(OrderDto dto, String username) {
-        if (dto == null) {
-            return null;
-        }
-
-        return OrderDao.builder()
-                .orderId(dto.getOrderId())
-                .shoppingCartId(dto.getShoppingCartId())
-                .products(dto.getProducts())
-                .paymentId(dto.getPaymentId())
-                .deliveryId(dto.getDeliveryId())
-                .state(dto.getState())
-                .deliveryWeight(dto.getDeliveryWeight())
-                .deliveryVolume(dto.getDeliveryVolume())
-                .fragile(dto.getFragile())
-                .totalPrice(dto.getTotalPrice())
-                .deliveryPrice(dto.getDeliveryPrice())
-                .productPrice(dto.getProductPrice())
-                .username(username)
                 .build();
     }
 }

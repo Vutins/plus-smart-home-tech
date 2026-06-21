@@ -122,16 +122,9 @@ public class GlobalErrorHandler {
         return new ErrorResponse("ERROR[409]: Произошла ошибка SpecifiedProductAlreadyInWarehouseException: ", e.getMessage());
     }
 
-    @ExceptionHandler(InternalServerError.class)
+    @ExceptionHandler({InternalServerError.class, Exception.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleGenericException(final InternalServerError e) {
-        log.error("Внутренняя ошибка сервера: {}", e.getMessage(), e);
-        return new ErrorResponse("ERROR[500]: Внутренняя ошибка сервера: ", e.getMessage());
-    }
-
-    @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleGenericException(final Exception e) {
         log.error("Внутренняя ошибка сервера: {}", e.getMessage(), e);
         return new ErrorResponse("ERROR[500]: Внутренняя ошибка сервера: ", e.getMessage());
     }

@@ -13,7 +13,7 @@ import ru.yandex.practicum.interaction_api.model.payment.dto.PaymentStatus;
 import ru.yandex.practicum.interaction_api.model.shopping_store.dto.ProductDto;
 import ru.yandex.practicum.interaction_api.model.shopping_store.client.ShoppingStoreClient;
 import ru.yandex.practicum.payment.model.mapper.PaymentMapper;
-import ru.yandex.practicum.payment.model.entity.PaymentDao;
+import ru.yandex.practicum.payment.model.entity.Payment;
 import ru.yandex.practicum.payment.model.repository.PaymentRepository;
 
 import java.math.BigDecimal;
@@ -36,7 +36,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     @Transactional
     public PaymentDto goToPayment(OrderDto order) {
-        PaymentDao newPayment = PaymentDao.builder()
+        Payment newPayment = Payment.builder()
                 .totalProduct(order.getProductPrice())
                 .deliveryTotal(order.getDeliveryPrice())
                 .totalPayment(order.getTotalPrice())
@@ -63,7 +63,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Transactional
     public void createRefund(UUID paymentId) {
 
-        PaymentDao payment = getPayment(paymentId);
+        Payment payment = getPayment(paymentId);
 
         payment.setStatus(PaymentStatus.SUCCESS);
         repository.save(payment);
@@ -103,7 +103,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Transactional
     public void failedPayment(UUID paymentId) {
 
-        PaymentDao payment = getPayment(paymentId);
+        Payment payment = getPayment(paymentId);
 
         payment.setStatus(PaymentStatus.FAILED);
         repository.save(payment);
@@ -114,7 +114,7 @@ public class PaymentServiceImpl implements PaymentService {
         log.warn("Ошибка при оплате с id {}!", paymentId);
     }
 
-    private PaymentDao getPayment(UUID paymentId) {
+    private Payment getPayment(UUID paymentId) {
         return repository.findById(paymentId)
                 .orElseThrow(() -> new PaymentNotFound("Оплата с id " + paymentId + " не найдена!"));
     }
